@@ -2,9 +2,10 @@ import { ISchema } from '@formily/react';
 import { uid } from '@formily/shared';
 import { collection } from '@nocobase/client';
 import { find } from 'lodash';
-import { STORE_ID_KEY } from '../../constants';
+import { NO_STORE_ID_TABLES, SAAS_TABLE_KEY_NAME } from '../../constants';
 import { CollectionCategory } from './components/CollectionCategory';
 import { CollectionTemplate } from './components/CollectionTemplate';
+
 export const collectionSchema: ISchema = {
   type: 'object',
   properties: {
@@ -155,16 +156,6 @@ export const collectionTableSchema: ISchema = {
           title: '{{ t("Actions") }}',
           'x-component': 'Table.Column',
           properties: {
-            // fields: {
-            //   'x-component': SassStoreSwitch,
-            //   'x-component-props': {
-            //     confirm: {
-            //       title: "{{t('Delete record')}}",
-            //       content: "{{t('Are you sure you want to delete it?')}}",
-            //     },
-            //     useAction: '{{ cm.useDestroyActionAndRefreshCM }}',
-            //   },
-            // },
             drawer: {
               type: 'void',
               'x-component': 'Action.Link',
@@ -174,7 +165,7 @@ export const collectionTableSchema: ISchema = {
                   title: '提示',
                   content: '开启后将为此数据表创建storeId字段，开启后不能手动关闭，如需关闭，请手动删除数据库storeId列',
                 },
-                useAction: '{{ cm.useDestroyActionAndRefreshCM }}',
+                useAction: '{{ useSaasAction }}',
               },
               'x-reactions': (field) => {
                 const i = field.path.segments[1];
@@ -183,10 +174,10 @@ export const collectionTableSchema: ISchema = {
                 console.log({ table, field });
                 if (table) {
                   field.title = '开启';
-                  if (['roles', 'users'].includes(table.name)) {
+                  if (NO_STORE_ID_TABLES.includes(table.name)) {
                     field.disabled = true;
                   }
-                  if (find(table.fields, { name: STORE_ID_KEY })) {
+                  if (find(table.fields, { name: SAAS_TABLE_KEY_NAME.store })) {
                     field.disabled = true;
                     field.setTitle('已开启');
                   }

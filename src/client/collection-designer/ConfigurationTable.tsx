@@ -1,14 +1,36 @@
 import {
   CollectionFieldsTable,
+  ISchemaComponentContext,
   SchemaComponent,
-  SchemaComponentContext,
+  useActionContext,
   useAPIClient,
   useCollectionManager,
   useCompile,
   useCurrentAppInfo,
+  useRecord,
 } from '@nocobase/client';
-import React, { useContext, useRef } from 'react';
+import React, { createContext, useContext, useRef } from 'react';
 import { collectionSchema } from './collection';
+
+const useSaasAction = () => {
+  const { name } = useRecord();
+  const actionContext = useActionContext();
+  const api = useAPIClient();
+  const { refreshCM } = useCollectionManager();
+  return {
+    async run() {
+      actionContext.setVisible(false);
+      await api.request({
+        url: 'saasStore:use',
+        params: {
+          tableName: name,
+        },
+      });
+      await refreshCM();
+    },
+  };
+};
+export const SchemaComponentContext = createContext<ISchemaComponentContext>({});
 
 export const ConfigurationTable = () => {
   const { collections = [], interfaces } = useCollectionManager();
@@ -41,6 +63,7 @@ export const ConfigurationTable = () => {
         }}
         scope={{
           loadDBViews,
+          useSaasAction,
           interfaces,
           enableInherits: database?.dialect === 'postgres',
           isPG: database?.dialect === 'postgres',

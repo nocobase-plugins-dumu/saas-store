@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/plugin-dumu-sass-store",
+  "name": "@nocobase/plugin-dumu-saas-store",
   "version": "0.10.0-alpha.4",
   "main": "lib/server/index.js",
   "devDependencies": {

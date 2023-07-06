@@ -17,6 +17,7 @@ export class DuMuSassStorePlugin extends Plugin {
       before: 'acl',
       after: 'setCurrentRole',
     });
+    // 为 SAAS_TABLE_KEY_NAME.store 绑定自动 dumuSaasStoreField 字段
     this.app.db.on('collection:loaded', (e) => {
       const collectionName = e.collection.options.name;
       const dumuSaasStoreField = e.collection.getField(SAAS_TABLE_KEY_NAME.store);

@@ -2,8 +2,8 @@ export const DUMU_SAAS_STORE_PLUGIN_NAME = 'dumuSaasStore';
 export const SAAS_TABLE = {
   tenant: 'tenant',
   store: 'store',
-  storeDepartment: 'storeOrganization',
-  storeDepartmentUsers: 'storeOrganizationUsers',
+  storeDepartment: 'storeDepartment',
+  storeDepartmentUsers: 'storeDepartmentUsers',
 };
 export const SAAS_TABLE_ID = {
   store: 'duMuSaasStoreId',

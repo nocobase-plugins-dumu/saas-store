@@ -9,7 +9,7 @@ export async function dumuSaasStoreInstall(db: Database) {
     await repo.db2cm(name);
   }
   const tempField = userExtendField();
-  const fieldRepository = this.app.db.getRepository('fields');
+  const fieldRepository = db.getRepository('fields');
   let departmentField = await fieldRepository.findOne({
     filter: {
       name: tempField.reverseField.name,
@@ -54,6 +54,6 @@ export async function dumuSaasStoreInstall(db: Database) {
       key: departmentField.key,
     },
   });
-  this.app.db.getCollection('users').setField(tempField.name, tempField);
-  this.app.db.getCollection(SAAS_TABLE.storeDepartment).setField(tempField.reverseField.name, tempField.reverseField);
+  db.getCollection('users').setField(tempField.name, tempField);
+  db.getCollection(SAAS_TABLE.storeDepartment).setField(tempField.reverseField.name, tempField.reverseField);
 }

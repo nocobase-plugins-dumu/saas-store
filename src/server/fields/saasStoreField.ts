@@ -19,8 +19,11 @@ export class SaasStoreField extends Field {
   listener = async (model: Model, options) => {
     const name = SAAS_TABLE_ID.store;
     const { context } = options;
-    model.set(SAAS_TABLE_ID.store, lodash.get(context, 'state.currentStore.id'));
-    model.changed(name as any, true);
+    const currentStoreId = lodash.get(context, 'state.currentStore.id');
+    if (currentStoreId) {
+      model.set(SAAS_TABLE_ID.store, lodash.get(context, 'state.currentStore.id'));
+      model.changed(name as any, true);
+    }
   };
 
   bind() {

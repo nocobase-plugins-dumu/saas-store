@@ -26,10 +26,12 @@ export class SaasStoreField extends Field {
   bind() {
     super.bind();
     this.on('beforeCreate', this.listener);
+    this.on('beforeUpdate', this.listener);
   }
 
   unbind() {
     super.unbind();
     this.off('beforeCreate', this.listener);
+    this.off('beforeUpdate', this.listener);
   }
 }

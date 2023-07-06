@@ -57,7 +57,7 @@ export default {
       name: SAAS_TABLE_KEY_NAME.department,
       type: 'hasMany',
       interface: 'o2m',
-      collectionName: 'store',
+      collectionName: SAAS_TABLE.store,
       target: SAAS_TABLE.storeDepartment,
       onDelete: 'SET NULL',
       sourceKey: 'id',

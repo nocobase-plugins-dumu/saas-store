@@ -1,12 +1,22 @@
-import { SettingsCenterProvider } from '@nocobase/client';
-import React from 'react';
+import {
+  CollectionManagerContext,
+  registerField,
+  SchemaComponentOptions,
+  SettingsCenterProvider,
+} from '@nocobase/client';
+import React, { useContext } from 'react';
+import { DUMU_SAAS_STORE_PLUGIN_NAME } from '../constants';
 import { CollectionDesigner } from './collection-designer';
+import { saasStoreField } from './saasStoreField';
 
-const SassStore = React.memo((props) => {
+registerField(saasStoreField.group, DUMU_SAAS_STORE_PLUGIN_NAME, saasStoreField);
+
+const SassStore = (props) => {
+  const ctx = useContext(CollectionManagerContext);
   return (
     <SettingsCenterProvider
       settings={{
-        'dumu-sass-store': {
+        [DUMU_SAAS_STORE_PLUGIN_NAME]: {
           title: 'saas多门店',
           icon: 'appstoreoutlined',
           tabs: {
@@ -18,10 +28,16 @@ const SassStore = React.memo((props) => {
         },
       }}
     >
-      {props.children}
+      <SchemaComponentOptions>
+        <CollectionManagerContext.Provider
+          value={{ ...ctx, interfaces: { ...ctx.interfaces, mathFormula: saasStoreField } }}
+        >
+          {props.children}
+        </CollectionManagerContext.Provider>
+      </SchemaComponentOptions>
     </SettingsCenterProvider>
   );
-});
-SassStore.displayName = 'SassStore';
+};
+SassStore.displayName = DUMU_SAAS_STORE_PLUGIN_NAME;
 
 export default SassStore;

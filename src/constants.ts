@@ -1,4 +1,4 @@
-export const DUMU_SAAS_STORE_PLUGIN_NAME = 'dumu-saas-store';
+export const DUMU_SAAS_STORE_PLUGIN_NAME = 'dumuSaasStore';
 export const SAAS_TABLE = {
   tenant: 'tenant',
   store: 'store',

@@ -4,18 +4,10 @@ import { find, map, uniqBy } from 'lodash';
 import { HTTP_HEADER_STORE_KEY, SAAS_TABLE, SAAS_TABLE_KEY_NAME } from '../../constants';
 
 export async function setCurrentTenantAndStore(ctx: Context, next) {
-  // const verificationPlugin: VerificationPlugin = ctx.app.getPlugin(DUMU_SAAS_STORE_PLUGIN_NAME);
-  // // 未开启插件不使用
-  // if (!verificationPlugin) {
-  //   return next();
-  // }
-  // return next();
-  const currentStoreId = ctx.get(HTTP_HEADER_STORE_KEY);
-
   if (!ctx.state.currentUser) {
     return next();
   }
-
+  const currentStoreId = ctx.get(HTTP_HEADER_STORE_KEY);
   const userId = ctx.state.currentUser.id;
   // 查找当前用户门店
   const stores = await ctx.db.getRepository<Repository>(SAAS_TABLE.store).find({
@@ -42,14 +34,9 @@ export async function setCurrentTenantAndStore(ctx: Context, next) {
   if (!currentStore) {
     return next();
   }
-  const currentTenant = currentStore.tenant;
   // 设置当前租户和门店
-  if (currentTenant) {
-    ctx.state.currentTenant = currentTenant;
-  }
-  if (currentStore) {
-    ctx.state.currentStore = currentStore;
-  }
+  ctx.state.currentTenant = currentStore[SAAS_TABLE_KEY_NAME.tenant];
+  ctx.state.currentStore = currentStore;
 
   await next();
 }

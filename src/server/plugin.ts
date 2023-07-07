@@ -1,6 +1,6 @@
 import { InstallOptions, Plugin } from '@nocobase/server';
 import { resolve } from 'path';
-import { DUMU_SAAS_STORE_PLUGIN_NAME, NO_STORE_ID_TABLES, SAAS_TABLE_ID, SAAS_TABLE_KEY_NAME } from '../constants';
+import { DUMU_SAAS_STORE_PLUGIN_NAME, SAAS_TABLE, SAAS_TABLE_ID, SAAS_TABLE_KEY_NAME } from '../constants';
 import { registerSaasStoreAction } from './actions/saasStore';
 import { SaasStoreField } from './fields/saasStoreField';
 import { dumuSaasStoreInstall } from './install';
@@ -22,7 +22,7 @@ export class DuMuSassStorePlugin extends Plugin {
     this.app.db.on('collection:loaded', (e) => {
       const collectionName = e.collection.options.name;
       const dumuSaasStoreField = e.collection.getField(SAAS_TABLE_KEY_NAME.store);
-      if (!dumuSaasStoreField || NO_STORE_ID_TABLES.includes(collectionName)) {
+      if (!dumuSaasStoreField || [SAAS_TABLE.tenant, SAAS_TABLE.store].includes(collectionName)) {
         return;
       }
       const collection = this.db.getCollection(collectionName);

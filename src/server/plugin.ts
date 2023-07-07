@@ -4,6 +4,7 @@ import { DUMU_SAAS_STORE_PLUGIN_NAME, NO_STORE_ID_TABLES, SAAS_TABLE_ID, SAAS_TA
 import { registerSaasStoreAction } from './actions/saasStore';
 import { SaasStoreField } from './fields/saasStoreField';
 import { dumuSaasStoreInstall } from './install';
+import { setAcl } from './middlewares/acl';
 import { setCurrentTenantAndStore } from './middlewares/setCurrentTenantAndStore';
 
 export class DuMuSassStorePlugin extends Plugin {
@@ -40,6 +41,7 @@ export class DuMuSassStorePlugin extends Plugin {
     });
     rootRole.grantAction('saasStore:use');
     registerSaasStoreAction(this.app);
+    setAcl(this.app);
   }
 
   async install(options?: InstallOptions) {

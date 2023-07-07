@@ -49,7 +49,11 @@ const SaasStoreManager = () => {
     );
   }
   let defaultValue: number[];
-  const currentStore = find(stores, (i) => i.id === currentStoreId);
+  const currentStore = find(stores, (i) => i.id === currentStoreId) || stores[0];
+  // 不在任何门店下
+  if (!currentStore) {
+    return;
+  }
   let storeName = currentStore.name;
 
   if (tenant.length === 1) {
@@ -89,7 +93,7 @@ export default (props) => {
   return (
     <PinnedPluginListProvider
       items={{
-        ama: { order: 1, component: 'SaasStoreManager', pin: true },
+        [DUMU_SAAS_STORE_PLUGIN_NAME]: { order: 1, component: 'SaasStoreManager', snippet: 'app' },
       }}
     >
       <SettingsCenterProvider

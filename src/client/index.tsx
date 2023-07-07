@@ -93,7 +93,7 @@ export default (props) => {
   return (
     <PinnedPluginListProvider
       items={{
-        [DUMU_SAAS_STORE_PLUGIN_NAME]: { order: 1, component: 'SaasStoreManager', snippet: 'app' },
+        [DUMU_SAAS_STORE_PLUGIN_NAME]: { order: 1, component: 'SaasStoreManager', snippet: 'pm.*' },
       }}
     >
       <SettingsCenterProvider

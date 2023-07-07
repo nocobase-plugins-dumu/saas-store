@@ -11,3 +11,9 @@ git clone git@github.com:nocobase-dumu-plugins/dumu-saas-store.git
 yarn pm add dumu-saas-store
 yarn pm enable dumu-saas-store (可不执行，再插件管理中开启)
 ```
+### 使用说明
+。。。
+![field.png](doc/img/field.png)
+![saas-setting.png](doc/img/saas-setting.png)
+![store1.png](doc/img/store1.png)
+![store2.png](doc/img/store2.png)

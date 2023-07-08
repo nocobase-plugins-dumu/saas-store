@@ -4,7 +4,8 @@
   "main": "lib/server/index.js",
   "devDependencies": {
     "@nocobase/server": "0.10.0-alpha.4",
-    "@nocobase/test": "0.10.0-alpha.4"
+    "@nocobase/test": "0.10.0-alpha.4",
+    "@nocobase/plugin-collection-manager": "0.10.0-alpha.4"
   },
   "displayName": "多门店sass企业",
   "description": "sass版多门店管理"

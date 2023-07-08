@@ -4,10 +4,12 @@
 门店中的用户增加数据会对数据自动带上门店id、删改查都会校验门店id
 
 ### 注册安装
+本插件依赖 nocobase `0.10.0-alpha.4` 所以需要先将nocobase升级到 `0.10.0-alpha.4` 以后的版本
 
 ``` shell
 cd packages/plugins
 git clone git@github.com:nocobase-dumu-plugins/dumu-saas-store.git
+yarn
 yarn pm add dumu-saas-store
 yarn pm enable dumu-saas-store (可不执行，再插件管理中开启)
 ```

@@ -1,10 +1,9 @@
 import Database from '@nocobase/database';
-import { CollectionRepository } from '@nocobase/plugin-collection-manager';
 import { omit } from 'lodash';
 import { SAAS_TABLE, userExtendField } from '../../constants';
 
 export async function dumuSaasStoreInstall(db: Database) {
-  const repo = db.getRepository<CollectionRepository>('collections');
+  const repo = db.getRepository<any>('collections');
   for (const name of [SAAS_TABLE.tenant, SAAS_TABLE.store, SAAS_TABLE.storeDepartment]) {
     await repo.db2cm(name);
   }

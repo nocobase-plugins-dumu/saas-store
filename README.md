@@ -28,4 +28,5 @@ yarn pm enable dumu-saas-store (可不执行，再插件管理中开启)
 ![store1.png](doc/img/store1.png)
 ![store2.png](doc/img/store2.png)
 
-> 仅使用本插件可能无法完全做到多门店的数据隔离，还需要配合 `nocobase` 自身的权限去配置对应的逻辑
+> 仅使用本插件可能无法完全做到多门店的数据隔离，还需要配合 `nocobase` 自身的角色和权限去配置对应的逻辑
+> ![ui3.png](doc/img/ui3.png)

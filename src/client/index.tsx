@@ -1,6 +1,7 @@
 import {
   CollectionManagerContext,
   PinnedPluginListProvider,
+  Plugin,
   registerField,
   SchemaComponentOptions,
   SettingsCenterProvider,
@@ -88,7 +89,7 @@ const SaasStoreManager = () => {
   );
 };
 
-export default (props) => {
+const dumuSaasStoreProvider = React.memo((props) => {
   const ctx = useContext(CollectionManagerContext);
   return (
     <PinnedPluginListProvider
@@ -120,4 +121,12 @@ export default (props) => {
       </SettingsCenterProvider>
     </PinnedPluginListProvider>
   );
-};
+});
+
+class DumuSaasStorePlugin extends Plugin {
+  async load() {
+    this.app.addProvider(dumuSaasStoreProvider);
+  }
+}
+
+export default DumuSaasStorePlugin;

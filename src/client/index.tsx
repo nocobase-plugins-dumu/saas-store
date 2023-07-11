@@ -2,7 +2,6 @@ import {
   CollectionManagerContext,
   PinnedPluginListProvider,
   Plugin,
-  registerField,
   SchemaComponentOptions,
   SettingsCenterProvider,
   useAPIClient,
@@ -27,7 +26,7 @@ interface Option {
   children?: Option[];
 }
 
-registerField(saasStoreField.group, DUMU_SAAS_STORE_PLUGIN_NAME, saasStoreField);
+// registerField(saasStoreField.group, DUMU_SAAS_STORE_PLUGIN_NAME, saasStoreField);
 const SaasStoreManager = () => {
   const api = useAPIClient();
   const currentStoreId = +api.storage.getItem(SAAS_STORE_ID_CACHE_KEY);
@@ -113,7 +112,7 @@ const dumuSaasStoreProvider = React.memo((props) => {
       >
         <SchemaComponentOptions components={{ SaasStoreManager }}>
           <CollectionManagerContext.Provider
-            value={{ ...ctx, interfaces: { ...ctx.interfaces, mathFormula: saasStoreField } }}
+            value={{ ...ctx, interfaces: { ...ctx.interfaces, [DUMU_SAAS_STORE_PLUGIN_NAME]: saasStoreField } }}
           >
             {props.children}
           </CollectionManagerContext.Provider>

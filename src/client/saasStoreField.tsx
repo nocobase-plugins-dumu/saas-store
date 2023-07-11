@@ -1,10 +1,16 @@
 import { IField, interfacesProperties } from '@nocobase/client';
-import { SAAS_TABLE, SAAS_TABLE_ID, SAAS_TABLE_KEY_NAME, STORE_TABLE_TITLE_KEY } from '../constants';
+import {
+  DUMU_SAAS_STORE_PLUGIN_NAME,
+  SAAS_TABLE,
+  SAAS_TABLE_ID,
+  SAAS_TABLE_KEY_NAME,
+  STORE_TABLE_TITLE_KEY,
+} from '../constants';
 
 const { defaultProps, operators } = interfacesProperties;
 
 export const saasStoreField: IField = {
-  name: 'mathFormula',
+  name: DUMU_SAAS_STORE_PLUGIN_NAME,
   type: 'object',
   group: 'systemInfo',
   order: 9,

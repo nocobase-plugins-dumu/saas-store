@@ -31,6 +31,14 @@ export function setAcl(app: Application) {
       });
       return next();
     }
+
+    // 默认只看当前门 店的用户
+    if (resourceName === 'users') {
+      ctx.action.mergeParams({
+        filter: { $and: [{ departments: { duMuSaasStore: { id: { $eq: ctx.state.currentStore.id } } } }] },
+      });
+      return next();
+    }
     if (!collection?.fields.get(SAAS_TABLE_ID.store)) {
       return next();
     }

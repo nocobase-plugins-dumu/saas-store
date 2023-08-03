@@ -2,13 +2,14 @@
   "name": "@nocobase/plugin-dumu-saas-store",
   "version": "0.11.0-alpha.1",
   "main": "lib/server/index.js",
-  "devDependencies": {
-    "@nocobase/server": "0.11.1-alpha.5",
-    "@nocobase/client": "0.11.1-alpha.5",
-    "@nocobase/actions": "0.11.1-alpha.5",
-    "@nocobase/test": "0.11.1-alpha.5",
-    "@nocobase/database": "0.11.1-alpha.5",
-    "@nocobase/auth": "0.11.1-alpha.5"
+  "devDependencies": {},
+  "peerDependencies": {
+    "@nocobase/server": "0.x",
+    "@nocobase/client": "0.x",
+    "@nocobase/actions": "0.x",
+    "@nocobase/test": "0.x",
+    "@nocobase/database": "0.x",
+    "@nocobase/auth": "0.x"
   },
   "displayName": "多门店sass企业",
   "description": "sass版多门店管理"

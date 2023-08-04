@@ -65,25 +65,13 @@ export const collectionTableSchema: ISchema = {
           },
           'x-align': 'left',
         },
-        toggle: {
-          type: 'void',
-          title: '批量开启',
-          'x-component': 'Action',
-          'x-component-props': {
-            useAction: '{{ cm.useBulkDestroyActionAndRefreshCM }}',
-            confirm: {
-              title: '提示',
-              content: '请确认是否开启，开启后不可以关闭！',
-            },
-          },
-        },
       },
     },
     tip: {
       type: 'void',
       'x-component': 'div',
       'x-content':
-        '开启后将为此数据表创建storeId字段（开启实际是给数据表增加了一个storeId字段，您也可以手动添加），开启后不能手动关闭，如需关闭，请手动删除数据库storeId列；users和roles不能增加storeId字段。',
+        '开启后将为此数据表创建dumuSaasStoreId字段（开启实际是给数据表增加了一个dumuSaasStoreId字段，您也可以手动添加），开启后不能手动关闭，如需关闭，请手动删除数据库dumuSaasStoreId字段；users和roles不能增加该字段。',
       'x-component-props': {
         style: {
           marginBottom: 10,
@@ -163,7 +151,8 @@ export const collectionTableSchema: ISchema = {
               'x-component-props': {
                 confirm: {
                   title: '提示',
-                  content: '开启后将为此数据表创建storeId字段，开启后不能手动关闭，如需关闭，请手动删除数据库storeId列',
+                  content:
+                    '开启后将为此数据表创建dumuSaasStoreId字段，开启后不能手动关闭，如需关闭，请手动删除数据库改字段列',
                 },
                 useAction: '{{ useSaasAction }}',
               },

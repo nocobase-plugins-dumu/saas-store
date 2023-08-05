@@ -5,7 +5,8 @@ import { SAAS_TABLE, SAAS_TABLE_ID, SAAS_TABLE_KEY_NAME } from '../../constants'
 export function setAcl(app: Application) {
   app.acl.use(async (ctx, next) => {
     const isRoot = ctx.state.currentRole === 'root';
-    if (isRoot) {
+    const { actionName } = ctx.action;
+    if (!['get', 'list'].includes(actionName) || isRoot) {
       return next();
     }
     const resourceName = ctx.action?.resourceName;

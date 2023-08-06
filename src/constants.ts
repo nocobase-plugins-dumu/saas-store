@@ -26,7 +26,7 @@ export const NO_STORE_ID_TABLES = [
   SAAS_TABLE.storeDepartment,
   SAAS_TABLE.storeDepartmentUsers,
 ];
-export const namespace = require('../package.json').name;
+export const namespace = 'dumu-saas-store';
 export const userExtendField = () => ({
   name: SAAS_TABLE_KEY_NAME.department,
   type: 'belongsToMany',

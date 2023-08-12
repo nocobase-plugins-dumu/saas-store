@@ -33,22 +33,18 @@ export function setAcl(app: Application) {
       return next();
     }
 
-    // 默认只看当前门 店的用户
-    if (resourceName === 'users') {
-      ctx.action.mergeParams({
-        filter: { $and: [{ departments: { duMuSaasStore: { id: { $eq: ctx.state.currentStore.id } } } }] },
-      });
-      return next();
-    }
     if (!collection?.fields.get(SAAS_TABLE_ID.store)) {
       return next();
     }
     // 如果有门店id，会带上当前门店id
-    ctx.action.mergeParams({
-      filter: {
-        [SAAS_TABLE_ID.store]: ctx.state.currentStore.id,
-      },
-    });
+    if (ctx.state.currentStore?.id) {
+      ctx.action.mergeParams({
+        filter: {
+          [SAAS_TABLE_ID.store]: ctx.state.currentStore.id,
+        },
+      });
+    }
+
     await next();
   });
 }

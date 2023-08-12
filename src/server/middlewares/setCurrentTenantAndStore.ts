@@ -14,7 +14,7 @@ export async function setCurrentTenantAndStore(ctx: Context, next) {
     await ctx.db.getRepository<Repository>(SAAS_TABLE.store).find({
       filter: {
         [SAAS_TABLE_KEY_NAME.department]: {
-          users: {
+          [SAAS_TABLE_KEY_NAME.employee]: {
             id: userId,
           },
         },
@@ -42,6 +42,16 @@ export async function setCurrentTenantAndStore(ctx: Context, next) {
   }
   if (!currentStore) {
     return next();
+  }
+  // 更新当前门店id
+  if (ctx.state.currentUser[SAAS_TABLE_ID.store] !== currentStore.id) {
+    ctx.state.currentUser[SAAS_TABLE_ID.store] = currentStore.id;
+    await ctx.db.getRepository<Repository>(SAAS_TABLE.employee).update({
+      values: {
+        [SAAS_TABLE_ID.store]: currentStore.id,
+      },
+      filterByTk: userId,
+    });
   }
   // 设置当前租户和门店
   ctx.state.currentTenant = currentStore[SAAS_TABLE_KEY_NAME.tenant];

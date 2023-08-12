@@ -20,7 +20,7 @@ export class SaasStoreField extends Field {
     const name = SAAS_TABLE_ID.store;
     const { context } = options;
     const currentStoreId = lodash.get(context, 'state.currentStore.id');
-    if (currentStoreId) {
+    if (currentStoreId && model.get(SAAS_TABLE_ID.store) !== currentStoreId) {
       model.set(SAAS_TABLE_ID.store, lodash.get(context, 'state.currentStore.id'));
       model.changed(name as any, true);
     }

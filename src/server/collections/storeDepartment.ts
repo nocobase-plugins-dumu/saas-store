@@ -94,6 +94,30 @@ export default {
         title: '门店',
       },
     },
+    {
+      name: SAAS_TABLE_KEY_NAME.employee,
+      type: 'belongsToMany',
+      interface: 'm2m',
+      collectionName: SAAS_TABLE.storeDepartment,
+      parentKey: null,
+      uiSchema: {
+        title: '员工',
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          multiple: true,
+          fieldNames: {
+            label: 'nickname',
+            value: 'id',
+          },
+        },
+      },
+      target: SAAS_TABLE.employee,
+      through: SAAS_TABLE.storeDepartmentUsers,
+      sourceKey: 'id',
+      foreignKey: SAAS_TABLE_ID.departmentId,
+      targetKey: 'id',
+      otherKey: 'userId',
+    },
     // 好像可以不用这个，先去掉
     // {
     //   name: SASS_TABLE_KEY_NAME.tenant,

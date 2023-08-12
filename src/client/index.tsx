@@ -9,7 +9,7 @@ import {
 } from '@nocobase/client';
 import { Cascader } from 'antd';
 import { AxiosRequestConfig } from 'axios';
-import { find, last } from 'lodash';
+import { find, last, map } from 'lodash';
 import React, { useContext } from 'react';
 import {
   DUMU_SAAS_STORE_PLUGIN_NAME,
@@ -57,7 +57,12 @@ const SaasStoreManager = () => {
   let storeName = currentStore.name;
 
   if (tenant.length === 1) {
-    options = stores;
+    options = map(stores, (i) => {
+      return {
+        ...i,
+        [SAAS_TABLE_KEY_NAME.store]: [],
+      };
+    });
     defaultValue = currentStore.id;
   } else {
     options = tenant;
@@ -69,6 +74,7 @@ const SaasStoreManager = () => {
     api.storage.setItem(SAAS_STORE_ID_CACHE_KEY, storeId);
     window.location.reload();
   };
+  console.log(options);
   return (
     <Cascader
       options={options}

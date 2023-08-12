@@ -1,6 +1,6 @@
 import { ISchema } from '@formily/react';
 import { uid } from '@formily/shared';
-import { collection } from '@nocobase/client';
+import { collection, useCollectionManager } from '@nocobase/client';
 import { find } from 'lodash';
 import { NO_STORE_ID_TABLES, SAAS_TABLE_KEY_NAME } from '../../constants';
 import { CollectionCategory } from './components/CollectionCategory';
@@ -160,13 +160,13 @@ export const collectionTableSchema: ISchema = {
                 const i = field.path.segments[1];
                 const key = field.path.segments[0];
                 const table = field.form.getValuesIn(`${key}.${i}`);
-                console.log({ table, field });
                 if (table) {
                   field.title = '开启';
                   if (NO_STORE_ID_TABLES.includes(table.name)) {
                     field.disabled = true;
                   }
-                  if (find(table.fields, { name: SAAS_TABLE_KEY_NAME.store })) {
+                  const { getCollectionFields } = useCollectionManager();
+                  if (find(getCollectionFields(table.name), { name: SAAS_TABLE_KEY_NAME.store })) {
                     field.disabled = true;
                     field.setTitle('已开启');
                   }

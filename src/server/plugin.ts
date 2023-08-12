@@ -6,6 +6,8 @@ import { SaasStoreField } from './fields/saasStoreField';
 import { dumuSaasStoreInstall } from './install';
 import { setAcl } from './middlewares/acl';
 import { setCurrentTenantAndStore } from './middlewares/setCurrentTenantAndStore';
+import { registerEmployeeDbMiddlewares } from './middlewares/employee';
+import { registerDepartmentDbMiddlewares } from './middlewares/department';
 
 export class DuMuSassStorePlugin extends Plugin {
   beforeLoad() {
@@ -42,6 +44,8 @@ export class DuMuSassStorePlugin extends Plugin {
     rootRole.grantAction('saasStore:use');
     registerSaasStoreAction(this.app);
     setAcl(this.app);
+    registerEmployeeDbMiddlewares(this.app);
+    registerDepartmentDbMiddlewares(this.app);
   }
 
   async install(options?: InstallOptions) {

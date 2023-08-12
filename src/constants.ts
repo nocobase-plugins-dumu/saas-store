@@ -2,6 +2,7 @@ export const DUMU_SAAS_STORE_PLUGIN_NAME = 'dumuSaasStore';
 export const SAAS_TABLE = {
   tenant: 'tenant',
   store: 'store',
+  employee: 'employee',
   storeDepartment: 'storeDepartment',
   storeDepartmentUsers: 'storeDepartmentUsers',
 };
@@ -14,13 +15,13 @@ export const SAAS_TABLE_KEY_NAME = {
   store: 'duMuSaasStore',
   tenant: 'duMuSaasTenant',
   department: 'departments',
+  employee: 'employees',
 };
 export const HTTP_HEADER_STORE_KEY = 'X-Store';
 export const SAAS_STORE_ID_CACHE_KEY = 'DUMU_SAAS_STORE_ID_CACHE_KEY';
 export const STORE_TABLE_TITLE_KEY = 'name';
 export const NO_STORE_ID_TABLES = [
   'roles',
-  'users',
   SAAS_TABLE.tenant,
   SAAS_TABLE.store,
   SAAS_TABLE.storeDepartment,

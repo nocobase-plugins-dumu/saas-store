@@ -1,8 +1,8 @@
 import { Application } from '@nocobase/server';
 import { SAAS_TABLE, SAAS_TABLE_ID, SAAS_TABLE_KEY_NAME } from '../../constants';
-import { SaveListener } from '@nocobase/database/lib/types';
 import get from 'lodash/get';
 import { Context } from '@nocobase/actions';
+import { SaveListener } from '@nocobase/database/src/types';
 
 const setDefaultDepartment: SaveListener = async (model, options) => {
   const transaction = options.transaction;

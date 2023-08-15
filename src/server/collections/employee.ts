@@ -1,5 +1,5 @@
 import { CollectionOptions } from '@nocobase/database';
-import { SAAS_TABLE, SAAS_TABLE_ID, SAAS_TABLE_KEY_NAME } from '../../constants';
+import { SAAS_TABLE, SAAS_TABLE_ID, SAAS_TABLE_KEY_NAME, STORE_TABLE_TITLE_KEY } from '../../constants';
 
 export default {
   name: SAAS_TABLE.employee,
@@ -52,6 +52,18 @@ export default {
         'x-component': 'AssociationField',
         'x-component-props': { multiple: true, fieldNames: { label: 'name', value: 'id' } },
         title: '所属部门',
+      },
+    },
+    {
+      foreignKey: SAAS_TABLE_ID.store,
+      onDelete: 'NO ACTION',
+      type: 'belongsTo',
+      interface: 'm2o',
+      target: SAAS_TABLE.store,
+      uiSchema: {
+        'x-component': 'AssociationField',
+        'x-component-props': { multiple: false, fieldNames: { label: STORE_TABLE_TITLE_KEY, value: 'id' } },
+        title: '门店',
       },
     },
   ],

@@ -3,7 +3,6 @@ import { resolve } from 'path';
 import { DUMU_SAAS_STORE_PLUGIN_NAME, SAAS_TABLE, SAAS_TABLE_ID, SAAS_TABLE_KEY_NAME } from '../constants';
 import { registerSaasStoreAction } from './actions/saasStore';
 import { SaasStoreField } from './fields/saasStoreField';
-import { dumuSaasStoreInstall } from './install';
 import { setAcl } from './middlewares/acl';
 import { setCurrentTenantAndStore } from './middlewares/setCurrentTenantAndStore';
 import { registerEmployeeDbMiddlewares } from './middlewares/employee';
@@ -38,6 +37,11 @@ export class DuMuSassStorePlugin extends Plugin {
     await this.db.import({
       directory: resolve(__dirname, 'collections'),
     });
+    // 创建门店相关表视图配置
+    const repo = this.db.getRepository<any>('collections');
+    for (const name of [SAAS_TABLE.tenant, SAAS_TABLE.store, SAAS_TABLE.storeDepartment, SAAS_TABLE.employee]) {
+      await repo.db2cm(name);
+    }
     const rootRole = this.app.acl.define({
       role: 'root',
     });
@@ -48,9 +52,7 @@ export class DuMuSassStorePlugin extends Plugin {
     registerDepartmentDbMiddlewares(this.app);
   }
 
-  async install(options?: InstallOptions) {
-    await dumuSaasStoreInstall(this.db);
-  }
+  async install(options?: InstallOptions) {}
 
   async afterEnable() {}
 

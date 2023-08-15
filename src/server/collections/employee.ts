@@ -55,6 +55,7 @@ export default {
       },
     },
     {
+      name: SAAS_TABLE_KEY_NAME.store,
       foreignKey: SAAS_TABLE_ID.store,
       onDelete: 'NO ACTION',
       type: 'belongsTo',

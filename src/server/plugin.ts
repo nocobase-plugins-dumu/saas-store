@@ -37,11 +37,7 @@ export class DuMuSassStorePlugin extends Plugin {
     await this.db.import({
       directory: resolve(__dirname, 'collections'),
     });
-    // 创建门店相关表视图配置
-    const repo = this.db.getRepository<any>('collections');
-    for (const name of [SAAS_TABLE.tenant, SAAS_TABLE.store, SAAS_TABLE.storeDepartment, SAAS_TABLE.employee]) {
-      await repo.db2cm(name);
-    }
+
     const rootRole = this.app.acl.define({
       role: 'root',
     });
@@ -54,7 +50,13 @@ export class DuMuSassStorePlugin extends Plugin {
 
   async install(options?: InstallOptions) {}
 
-  async afterEnable() {}
+  async afterEnable() {
+    // 创建门店相关表视图配置
+    const repo = this.db.getRepository<any>('collections');
+    for (const name of [SAAS_TABLE.tenant, SAAS_TABLE.store, SAAS_TABLE.storeDepartment, SAAS_TABLE.employee]) {
+      await repo.db2cm(name);
+    }
+  }
 
   async afterDisable() {}
 

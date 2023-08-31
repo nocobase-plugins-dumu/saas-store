@@ -74,7 +74,6 @@ const SaasStoreManager = () => {
     api.storage.setItem(SAAS_STORE_ID_CACHE_KEY, storeId);
     window.location.reload();
   };
-  console.log(options);
   return (
     <Cascader
       options={options}

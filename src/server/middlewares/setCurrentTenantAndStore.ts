@@ -10,22 +10,20 @@ export async function setCurrentTenantAndStore(ctx: Context, next) {
   const currentStoreId = +ctx.get(HTTP_HEADER_STORE_KEY);
   const userId = ctx.state.currentUser.id;
   // 查找当前用户门店
-  const stores = map(
-    await ctx.db.getRepository<Repository>(SAAS_TABLE.store).find({
-      filter: {
-        [SAAS_TABLE_KEY_NAME.department]: {
-          [SAAS_TABLE_KEY_NAME.employee]: {
-            id: userId,
-          },
+  const storeSources = await ctx.db.getRepository<Repository>(SAAS_TABLE.store).find({
+    filter: {
+      [SAAS_TABLE_KEY_NAME.department]: {
+        [SAAS_TABLE_KEY_NAME.employee]: {
+          id: userId,
         },
       },
-      appends: [SAAS_TABLE_KEY_NAME.tenant],
-    }),
-    (i) => i.dataValues,
-  );
+    },
+    appends: [SAAS_TABLE_KEY_NAME.tenant],
+  });
+  const stores = map(storeSources, (i) => i.toJSON());
   const tenant = uniqBy(
     map(stores, (item) => {
-      const tenant = item[SAAS_TABLE_KEY_NAME.tenant].dataValues;
+      const tenant = item[SAAS_TABLE_KEY_NAME.tenant];
       tenant[SAAS_TABLE_KEY_NAME.store] = filter(stores, (item) => item[SAAS_TABLE_ID.tenant] === tenant.id).map((i) =>
         omit(i, SAAS_TABLE_KEY_NAME.tenant),
       );

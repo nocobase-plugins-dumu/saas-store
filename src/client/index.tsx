@@ -29,14 +29,18 @@ interface Option {
 // registerField(saasStoreField.group, DUMU_SAAS_STORE_PLUGIN_NAME, saasStoreField);
 const SaasStoreManager = () => {
   const api = useAPIClient();
-  const currentStoreId = +api.storage.getItem(SAAS_STORE_ID_CACHE_KEY);
+  const userState = useCurrentUserContext().data.data;
+  const stores = userState[SAAS_TABLE_KEY_NAME.store];
+  const tenant = userState[SAAS_TABLE_KEY_NAME.tenant];
+  let currentStoreId = +api.storage.getItem(SAAS_STORE_ID_CACHE_KEY);
+  if (!currentStoreId && stores.length) {
+    api.storage.setItem(SAAS_STORE_ID_CACHE_KEY, stores[0].id);
+    currentStoreId = stores[0].id;
+  }
   api.axios.interceptors.request.use((config: AxiosRequestConfig) => {
     config.headers[HTTP_HEADER_STORE_KEY] = currentStoreId;
     return config;
   });
-  const userState = useCurrentUserContext().data.data;
-  const stores = userState[SAAS_TABLE_KEY_NAME.store];
-  const tenant = userState[SAAS_TABLE_KEY_NAME.tenant];
   let options: Option[] = [];
   const style = {
     padding: '10px',

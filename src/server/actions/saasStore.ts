@@ -9,6 +9,7 @@ export async function useSaasStoreIdFiled(tableName: string, db: Database) {
     throw new Error(`${tableName}已开启saas多门店字段`);
   }
   const storeField = {
+    name: SAAS_TABLE_KEY_NAME.store,
     foreignKey: SAAS_TABLE_ID.store,
     onDelete: 'NO ACTION',
     type: 'belongsTo',

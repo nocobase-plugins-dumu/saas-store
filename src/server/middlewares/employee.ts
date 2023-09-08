@@ -21,6 +21,7 @@ const setDefaultDepartment: SaveListener = async (model, options) => {
     filter: {
       userId: model.id,
     },
+    transaction,
   });
   if (!departmentUser) {
     let rootDepartment = await departmentResp.findOne({
@@ -30,6 +31,7 @@ const setDefaultDepartment: SaveListener = async (model, options) => {
           $empty: true,
         },
       },
+      transaction,
     });
     if (!rootDepartment) {
       rootDepartment = await departmentResp.create({
@@ -44,7 +46,9 @@ const setDefaultDepartment: SaveListener = async (model, options) => {
       values: {
         userId: model.id,
         [SAAS_TABLE_ID.departmentId]: rootDepartment.id,
+        [SAAS_TABLE_ID.store]: storeId,
       },
+      transaction,
     });
     console.log({ depUser });
   }

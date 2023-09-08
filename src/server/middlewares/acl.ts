@@ -3,10 +3,12 @@ import { map } from 'lodash';
 import { SAAS_TABLE, SAAS_TABLE_ID, SAAS_TABLE_KEY_NAME } from '../../constants';
 
 export function setAcl(app: Application) {
+  app.acl.allow('qxType', 'update', () => {
+    return false;
+  });
   app.acl.use(async (ctx, next) => {
-    const isRoot = ctx.state.currentRole === 'root';
     const { actionName } = ctx.action;
-    if (!['get', 'list'].includes(actionName) || isRoot) {
+    if (!['get', 'list'].includes(actionName)) {
       return next();
     }
     const resourceName = ctx.action?.resourceName;
@@ -27,23 +29,33 @@ export function setAcl(app: Application) {
     if (resourceName === SAAS_TABLE.tenant) {
       ctx.action.mergeParams({
         filter: {
-          id: ctx.state.currentTenant.id,
+          id: ctx.state.currentTenant?.id,
         },
       });
       return next();
     }
 
+    // 默认只看当前租户
+    if (resourceName === SAAS_TABLE.employee) {
+      ctx.action.mergeParams({
+        filter: {
+          [SAAS_TABLE_ID.store]: ctx.state.currentStore?.id,
+        },
+      });
+      return next();
+    }
+
+    // 如果有门店id字段，就必须判断当前当前用户的门店权限
     if (!collection?.fields.get(SAAS_TABLE_ID.store)) {
       return next();
     }
-    // 如果有门店id，会带上当前门店id
-    if (ctx.state.currentStore?.id) {
-      ctx.action.mergeParams({
-        filter: {
-          [SAAS_TABLE_ID.store]: ctx.state.currentStore.id,
+    ctx.action.mergeParams({
+      filter: {
+        [SAAS_TABLE_ID.store]: {
+          $in: [ctx.state.currentStore?.id, 1],
         },
-      });
-    }
+      },
+    });
 
     await next();
   });

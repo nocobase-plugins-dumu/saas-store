@@ -8,7 +8,7 @@ export function setAcl(app: Application) {
   });
   app.acl.use(async (ctx, next) => {
     const { actionName } = ctx.action;
-    if (!['get', 'list'].includes(actionName)) {
+    if (!['get', 'list'].includes(actionName) || ctx.state.currentUser?.username === 'admin') {
       return next();
     }
     const resourceName = ctx.action?.resourceName;
@@ -39,7 +39,7 @@ export function setAcl(app: Application) {
     if (resourceName === SAAS_TABLE.employee) {
       ctx.action.mergeParams({
         filter: {
-          [SAAS_TABLE_ID.store]: ctx.state.currentStore?.id,
+          [SAAS_TABLE_ID.store]: ctx.state.currentStore?.id || 0,
         },
       });
       return next();
@@ -52,7 +52,7 @@ export function setAcl(app: Application) {
     ctx.action.mergeParams({
       filter: {
         [SAAS_TABLE_ID.store]: {
-          $in: [ctx.state.currentStore?.id, 1],
+          $in: [ctx.state.currentStore?.id || 0, 1],
         },
       },
     });

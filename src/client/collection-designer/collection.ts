@@ -1,7 +1,6 @@
 import { ISchema } from '@formily/react';
 import { uid } from '@formily/shared';
 import { collection, useCollectionManager } from '@nocobase/client';
-import { find } from 'lodash';
 import { NO_STORE_ID_TABLES, SAAS_TABLE_KEY_NAME } from '../../constants';
 import { CollectionCategory } from './components/CollectionCategory';
 import { CollectionTemplate } from './components/CollectionTemplate';
@@ -165,8 +164,8 @@ export const collectionTableSchema: ISchema = {
                   if (NO_STORE_ID_TABLES.includes(table.name)) {
                     field.disabled = true;
                   }
-                  const { getCollectionFields } = useCollectionManager();
-                  if (find(getCollectionFields(table.name), { name: SAAS_TABLE_KEY_NAME.store })) {
+                  const { getCollectionField } = useCollectionManager();
+                  if (getCollectionField(`${table.name}.${SAAS_TABLE_KEY_NAME.store}`)) {
                     field.disabled = true;
                     field.setTitle('已开启');
                   }

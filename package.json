@@ -2,6 +2,8 @@
   "name": "@nocobase-plugins-dumu/saas-store",
   "version": "0.13.0",
   "main": "./dist/server/index.js",
+  "displayName": "多门店sass企业",
+  "description": "sass版多门店管理",
   "peerDependencies": {
     "@nocobase/actions": "0.x",
     "@nocobase/auth": "0.x",
@@ -10,6 +12,29 @@
     "@nocobase/server": "0.x",
     "@nocobase/test": "0.x"
   },
-  "displayName": "多门店sass企业",
-  "description": "sass版多门店管理"
+  "types": "./dist/server/index.d.ts",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "directories": {
+    "doc": "doc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nocobase-plugins-dumu/saas-store.git"
+  },
+  "keywords": [
+    "nocobae",
+    "saas-store",
+    "plugin"
+  ],
+  "author": "ytl003",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nocobase-plugins-dumu/saas-store/issues"
+  },
+  "homepage": "https://github.com/nocobase-plugins-dumu/saas-store#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }

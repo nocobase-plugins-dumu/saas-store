@@ -1,5 +1,5 @@
 {
-  "name": "@nocobase/plugin-dumu-saas-store",
+  "name": "@nocobase-plugins-dumu/saas-store",
   "version": "0.13.0",
   "main": "./dist/server/index.js",
   "peerDependencies": {

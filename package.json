@@ -1,9 +1,9 @@
 {
   "name": "@nocobase-plugins-dumu/saas-store",
-  "version": "0.13.0",
-  "main": "./dist/server/index.js",
+  "version": "0.13.1",
+  "main": "dist/server/index.js",
   "displayName": "多门店sass企业",
-  "description": "sass版多门店管理",
+  "description": "sass版多门店管理插件，支持在线安装",
   "peerDependencies": {
     "@nocobase/actions": "0.x",
     "@nocobase/auth": "0.x",
@@ -24,9 +24,9 @@
     "url": "git+ssh://git@github.com/nocobase-plugins-dumu/saas-store.git"
   },
   "keywords": [
-    "nocobae",
-    "saas-store",
-    "plugin"
+    "nocobase",
+    "plugin",
+    "saas-store"
   ],
   "author": "ytl003",
   "license": "ISC",
